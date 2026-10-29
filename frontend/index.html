@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wayfinder – Your Journey, Simplified</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <span>🇮🇳 India's multi-modal travel platform</span>
+      <span class="topbar-right">Support · 24×7 · Demo mode</span>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-inner">
+      <div class="logo">
+        <div class="logo-mark">W</div>
+        <div class="logo-text">Wayfinder</div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero + Search -->
+  <section class="hero-search">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <h1>Where do you want to go?</h1>
+      <p class="hero-sub">Choose Flights, Trains, Buses or Cabs and search each mode separately.</p>
+
+      <div class="search-card">
+        <div class="mode-tabs" role="group" aria-label="Choose transport mode">
+          <button class="mode-tab active" type="button" data-mode="flight">✈ Flights</button>
+          <button class="mode-tab" type="button" data-mode="train">🚆 Trains</button>
+          <button class="mode-tab" type="button" data-mode="bus">🚌 Buses</button>
+          <button class="mode-tab" type="button" data-mode="cab">🚕 Cabs</button>
+        </div>
+        <div class="trip-tabs">
+          <button class="trip-tab active" data-type="oneway">One Way</button>
+          <button class="trip-tab" data-type="round">Round Trip</button>
+        </div>
+
+        <div class="search-row">
+          <div class="field city-field">
+            <label>From</label>
+            <select id="origin"><option value="">Search city or state</option></select>
+          </div>
+          <button class="swap-btn" id="swapBtn" title="Swap">⇄</button>
+          <div class="field city-field">
+            <label>To</label>
+            <select id="destination"><option value="">Search city or state</option></select>
+          </div>
+          <div class="field">
+            <label>Departure date</label>
+            <input type="date" id="departDate" class="date-input" />
+          </div>
+          <div class="field">
+            <label>Departure time</label>
+            <input type="time" id="departAfter" class="date-input" />
+          </div>
+          <div class="field" id="returnDateField">
+            <label>Return</label>
+            <input type="date" id="returnDate" class="date-input" disabled />
+          </div>
+          <div class="field">
+            <label>Travellers</label>
+            <select id="travellers">
+              <option value="1">1 Adult</option>
+              <option value="2">2 Adults</option>
+              <option value="3">3 Adults</option>
+              <option value="4">4 Adults</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Prefer</label>
+            <select id="prefer">
+              <option value="balanced">Balanced</option>
+              <option value="time">Fastest</option>
+              <option value="cost">Cheapest</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="filter-panel">
+          <div class="filter-panel-title">Choose your travel time and filters</div>
+          <div class="filter-row">
+          <div class="field">
+            <label>Transport</label>
+            <select id="transportMode">
+              <option value="all">All modes</option>
+              <option value="flight">Flights</option>
+              <option value="train">Trains</option>
+              <option value="bus">Buses</option>
+              <option value="cab">Cabs</option>
+              <option value="road">Road estimates</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Time matching</label>
+            <select id="departMatch">
+              <option value="after">At or after my time</option>
+              <option value="30">Within ±30 minutes</option>
+              <option value="60">Within ±60 minutes</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Departure window</label>
+            <select id="timePeriod">
+              <option value="any">Any time</option>
+              <option value="morning">Morning · 05–12</option>
+              <option value="afternoon">Afternoon · 12–17</option>
+              <option value="evening">Evening · 17–21</option>
+              <option value="night">Night · 21–05</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Max budget (₹)</label>
+            <input type="number" id="maxPrice" min="0" step="100" placeholder="No limit" />
+          </div>
+          <button id="searchBtn" class="search-btn">
+            <span class="btn-text">SEARCH OPTIONS</span>
+            <span class="btn-loader hidden"></span>
+          </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="status" class="status-bar hidden"></div>
+
+  <!-- Results -->
+  <main class="results-section">
+    <div id="results-header" class="results-header hidden">
+      <div>
+        <h2 id="results-title">Available options</h2>
+        <p id="results-count" class="results-count"></p>
+      </div>
+      <div class="sort-pills">
+        <span class="sort-label">Sort:</span>
+        <button class="sort-pill active" data-sort="balanced">Best</button>
+        <button class="sort-pill" data-sort="time">Fastest</button>
+        <button class="sort-pill" data-sort="cost">Cheapest</button>
+      </div>
+    </div>
+
+    <div id="outbound-section" class="trip-section hidden">
+      <div class="section-label" id="outbound-label">Outbound</div>
+      <div id="outbound-results" class="results-list"></div>
+    </div>
+
+    <div id="return-section" class="trip-section hidden">
+      <div class="section-label" id="return-label">Return</div>
+      <div id="return-results" class="results-list"></div>
+    </div>
+
+    <div id="booking-bar" class="booking-bar hidden">
+      <div class="booking-summary">
+        <div id="selected-summary">Select options to continue</div>
+        <div class="booking-total">Total <strong id="total-price">₹0</strong></div>
+      </div>
+      <button id="bookBtn" class="book-btn" disabled>Continue to Book</button>
+    </div>
+  </main>
+
+  <!-- Popular routes -->
+  <section class="popular-section" id="popular">
+    <h2>Popular routes</h2>
+    <div class="popular-grid" id="popularGrid">
+      <button class="popular-card" data-from="chennai" data-to="bangalore">
+        <span class="pop-route">Chennai → Bengaluru</span>
+        <span class="pop-meta">From ₹550</span>
+      </button>
+      <button class="popular-card" data-from="mumbai" data-to="delhi">
+        <span class="pop-route">Mumbai → Delhi</span>
+        <span class="pop-meta">From ₹2,850</span>
+      </button>
+      <button class="popular-card" data-from="delhi" data-to="jaipur">
+        <span class="pop-route">Delhi → Jaipur</span>
+        <span class="pop-meta">From ₹650</span>
+      </button>
+      <button class="popular-card" data-from="bangalore" data-to="hyderabad">
+        <span class="pop-route">Bengaluru → Hyderabad</span>
+        <span class="pop-meta">From ₹690</span>
+      </button>
+      <button class="popular-card" data-from="chennai" data-to="mumbai">
+        <span class="pop-route">Chennai → Mumbai</span>
+        <span class="pop-meta">From ₹1,450</span>
+      </button>
+      <button class="popular-card" data-from="mumbai" data-to="goa">
+        <span class="pop-route">Mumbai → Goa</span>
+        <span class="pop-meta">From ₹1,300</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Trust strip -->
+  <section class="trust-strip">
+    <div class="trust-item"><span class="trust-icon">🔒</span> Secure demo booking</div>
+    <div class="trust-item"><span class="trust-icon">⚡</span> Instant PNR</div>
+    <div class="trust-item"><span class="trust-icon">🚂</span> Trains + Flights + Buses</div>
+    <div class="trust-item"><span class="trust-icon">📱</span> Works on mobile</div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="logo-mark sm">W</div>
+        <div>
+          <strong>Wayfinder</strong>
+          <p>Multi-modal travel booking prototype</p>
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="#">About</a>
+        <a href="#">Support</a>
+        <a href="#">Terms</a>
+        <a href="#">Privacy</a>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Wayfinder AI · Demo only — no real tickets issued</div>
+  </footer>
+
+  <!-- Booking Modal -->
+  <div id="bookingModal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <button class="modal-close" id="closeModal">×</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- My Bookings Modal -->
+  <div id="bookingsModal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content wide">
+      <button class="modal-close" id="closeBookings">×</button>
+      <h2 class="modal-title">My Trips</h2>
+      <div id="bookings-list"></div>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,233 @@
+[
+  {
+    "from": "chennai",
+    "to": "bangalore",
+    "airline": "IndiGo",
+    "flight_no": "6E-512",
+    "dep": "06:15",
+    "arr": "07:25",
+    "duration_min": 70,
+    "cost": 4200,
+    "bidirectional": true
+  },
+  {
+    "from": "chennai",
+    "to": "bangalore",
+    "airline": "Air India",
+    "flight_no": "AI-570",
+    "dep": "09:40",
+    "arr": "10:55",
+    "duration_min": 75,
+    "cost": 4850,
+    "bidirectional": true
+  },
+  {
+    "from": "chennai",
+    "to": "bangalore",
+    "airline": "IndiGo",
+    "flight_no": "6E-6183",
+    "dep": "14:20",
+    "arr": "15:35",
+    "duration_min": 75,
+    "cost": 3900,
+    "bidirectional": true
+  },
+  {
+    "from": "chennai",
+    "to": "bangalore",
+    "airline": "SpiceJet",
+    "flight_no": "SG-123",
+    "dep": "18:50",
+    "arr": "20:05",
+    "duration_min": 75,
+    "cost": 3600,
+    "bidirectional": true
+  },
+  {
+    "from": "chennai",
+    "to": "bangalore",
+    "airline": "Akasa Air",
+    "flight_no": "QP-1421",
+    "dep": "21:10",
+    "arr": "22:20",
+    "duration_min": 70,
+    "cost": 4100,
+    "bidirectional": true
+  },
+  {
+    "from": "chennai",
+    "to": "hyderabad",
+    "airline": "IndiGo",
+    "flight_no": "6E-601",
+    "dep": "07:30",
+    "arr": "08:55",
+    "duration_min": 85,
+    "cost": 4800,
+    "bidirectional": true
+  },
+  {
+    "from": "chennai",
+    "to": "mumbai",
+    "airline": "IndiGo",
+    "flight_no": "6E-530",
+    "dep": "08:00",
+    "arr": "10:00",
+    "duration_min": 120,
+    "cost": 5200,
+    "bidirectional": true
+  },
+  {
+    "from": "chennai",
+    "to": "delhi",
+    "airline": "IndiGo",
+    "flight_no": "6E-2041",
+    "dep": "06:00",
+    "arr": "08:50",
+    "duration_min": 170,
+    "cost": 6800,
+    "bidirectional": true
+  },
+  {
+    "from": "bangalore",
+    "to": "delhi",
+    "airline": "IndiGo",
+    "flight_no": "6E-2118",
+    "dep": "05:55",
+    "arr": "08:40",
+    "duration_min": 165,
+    "cost": 6200,
+    "bidirectional": true
+  },
+  {
+    "from": "bangalore",
+    "to": "mumbai",
+    "airline": "IndiGo",
+    "flight_no": "6E-528",
+    "dep": "07:15",
+    "arr": "09:05",
+    "duration_min": 110,
+    "cost": 5100,
+    "bidirectional": true
+  },
+  {
+    "from": "bangalore",
+    "to": "hyderabad",
+    "airline": "IndiGo",
+    "flight_no": "6E-6082",
+    "dep": "07:10",
+    "arr": "08:25",
+    "duration_min": 75,
+    "cost": 4800,
+    "bidirectional": true
+  },
+  {
+    "from": "bangalore",
+    "to": "hyderabad",
+    "airline": "Air India Express",
+    "flight_no": "IX-1234",
+    "dep": "16:40",
+    "arr": "17:55",
+    "duration_min": 75,
+    "cost": 4200,
+    "bidirectional": true
+  },
+  {
+    "from": "mumbai",
+    "to": "delhi",
+    "airline": "IndiGo",
+    "flight_no": "6E-2114",
+    "dep": "06:00",
+    "arr": "08:10",
+    "duration_min": 130,
+    "cost": 6200,
+    "bidirectional": true
+  },
+  {
+    "from": "mumbai",
+    "to": "delhi",
+    "airline": "Air India",
+    "flight_no": "AI-865",
+    "dep": "10:30",
+    "arr": "12:45",
+    "duration_min": 135,
+    "cost": 7100,
+    "bidirectional": true
+  },
+  {
+    "from": "mumbai",
+    "to": "delhi",
+    "airline": "Vistara",
+    "flight_no": "UK-995",
+    "dep": "18:15",
+    "arr": "20:25",
+    "duration_min": 130,
+    "cost": 7800,
+    "bidirectional": true
+  },
+  {
+    "from": "hyderabad",
+    "to": "delhi",
+    "airline": "IndiGo",
+    "flight_no": "6E-2156",
+    "dep": "06:20",
+    "arr": "08:40",
+    "duration_min": 140,
+    "cost": 5800,
+    "bidirectional": true
+  },
+  {
+    "from": "kolkata",
+    "to": "delhi",
+    "airline": "IndiGo",
+    "flight_no": "6E-2032",
+    "dep": "07:00",
+    "arr": "09:15",
+    "duration_min": 135,
+    "cost": 5600,
+    "bidirectional": true
+  },
+  {
+    "from": "mumbai",
+    "to": "goa",
+    "airline": "IndiGo",
+    "flight_no": "6E-6012",
+    "dep": "08:30",
+    "arr": "09:40",
+    "duration_min": 70,
+    "cost": 3200,
+    "bidirectional": true
+  },
+  {
+    "from": "bangalore",
+    "to": "goa",
+    "airline": "IndiGo",
+    "flight_no": "6E-6145",
+    "dep": "09:15",
+    "arr": "10:30",
+    "duration_min": 75,
+    "cost": 3800,
+    "bidirectional": true
+  },
+  {
+    "from": "delhi",
+    "to": "jaipur",
+    "airline": "IndiGo",
+    "flight_no": "6E-2071",
+    "dep": "07:45",
+    "arr": "08:45",
+    "duration_min": 60,
+    "cost": 3500,
+    "bidirectional": true
+  },
+  {
+    "from": "chennai",
+    "to": "kochi",
+    "airline": "IndiGo",
+    "flight_no": "6E-702",
+    "dep": "06:50",
+    "arr": "08:05",
+    "duration_min": 75,
+    "cost": 4200,
+    "bidirectional": true
+  }
+]

@@ -1,0 +1,134 @@
+[
+  {
+    "from": "chennai",
+    "to": "bangalore",
+    "operator": "Uber Intercity / Ola Outstation",
+    "dep": "Flexible",
+    "arr": "~6h",
+    "duration_min": 360,
+    "cost": 4200,
+    "vehicle": "Sedan",
+    "bidirectional": true
+  },
+  {
+    "from": "chennai",
+    "to": "bangalore",
+    "operator": "Savaari / MyTaxiIndia",
+    "dep": "Flexible",
+    "arr": "~6h",
+    "duration_min": 360,
+    "cost": 5800,
+    "vehicle": "SUV",
+    "bidirectional": true
+  },
+  {
+    "from": "mumbai",
+    "to": "pune",
+    "operator": "Uber Intercity / Ola",
+    "dep": "Flexible",
+    "arr": "~3h",
+    "duration_min": 180,
+    "cost": 1800,
+    "vehicle": "Sedan",
+    "bidirectional": true
+  },
+  {
+    "from": "mumbai",
+    "to": "pune",
+    "operator": "Ola Outstation",
+    "dep": "Flexible",
+    "arr": "~3h",
+    "duration_min": 180,
+    "cost": 2200,
+    "vehicle": "SUV",
+    "bidirectional": true
+  },
+  {
+    "from": "mumbai",
+    "to": "pune",
+    "operator": "Rapido / Shared",
+    "dep": "Flexible",
+    "arr": "~3.5h",
+    "duration_min": 210,
+    "cost": 900,
+    "vehicle": "Shared Cab",
+    "bidirectional": true
+  },
+  {
+    "from": "delhi",
+    "to": "jaipur",
+    "operator": "Uber Intercity / BluSmart",
+    "dep": "Flexible",
+    "arr": "~4.5h",
+    "duration_min": 270,
+    "cost": 3200,
+    "vehicle": "Sedan",
+    "bidirectional": true
+  },
+  {
+    "from": "delhi",
+    "to": "jaipur",
+    "operator": "Savaari / Meru",
+    "dep": "Flexible",
+    "arr": "~4.5h",
+    "duration_min": 270,
+    "cost": 3800,
+    "vehicle": "SUV",
+    "bidirectional": true
+  },
+  {
+    "from": "delhi",
+    "to": "chandigarh",
+    "operator": "Ola Outstation",
+    "dep": "Flexible",
+    "arr": "~4h",
+    "duration_min": 240,
+    "cost": 3800,
+    "vehicle": "Sedan",
+    "bidirectional": true
+  },
+  {
+    "from": "bangalore",
+    "to": "hyderabad",
+    "operator": "Ola Outstation",
+    "dep": "Flexible",
+    "arr": "~9h",
+    "duration_min": 540,
+    "cost": 6500,
+    "vehicle": "Sedan",
+    "bidirectional": true
+  },
+  {
+    "from": "mumbai",
+    "to": "goa",
+    "operator": "Ola Outstation / Savaari",
+    "dep": "Flexible",
+    "arr": "~10h",
+    "duration_min": 600,
+    "cost": 7200,
+    "vehicle": "Sedan",
+    "bidirectional": true
+  },
+  {
+    "from": "chennai",
+    "to": "kochi",
+    "operator": "Ola Outstation",
+    "dep": "Flexible",
+    "arr": "~11h",
+    "duration_min": 660,
+    "cost": 7800,
+    "vehicle": "Sedan",
+    "bidirectional": true
+  },
+  {
+    "from": "delhi",
+    "to": "agra",
+    "operator": "Uber Intercity",
+    "dep": "Flexible",
+    "arr": "~3.5h",
+    "duration_min": 210,
+    "cost": 2800,
+    "vehicle": "Sedan",
+    "bidirectional": true
+  }
+]

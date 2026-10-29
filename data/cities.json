@@ -1,0 +1,418 @@
+[
+  {
+    "id": "chennai",
+    "name": "Chennai",
+    "lat": 13.0827,
+    "lon": 80.2707,
+    "state": "Tamil Nadu",
+    "location_type": "city",
+    "states": [
+      "Tamil Nadu"
+    ]
+  },
+  {
+    "id": "bangalore",
+    "name": "Bengaluru",
+    "lat": 12.9716,
+    "lon": 77.5946,
+    "state": "Karnataka",
+    "location_type": "city",
+    "states": [
+      "Karnataka"
+    ]
+  },
+  {
+    "id": "hyderabad",
+    "name": "Hyderabad",
+    "lat": 17.385,
+    "lon": 78.4867,
+    "state": "Telangana",
+    "location_type": "city",
+    "states": [
+      "Telangana"
+    ]
+  },
+  {
+    "id": "mumbai",
+    "name": "Mumbai",
+    "lat": 19.076,
+    "lon": 72.8777,
+    "state": "Maharashtra",
+    "location_type": "city",
+    "states": [
+      "Maharashtra"
+    ]
+  },
+  {
+    "id": "pune",
+    "name": "Pune",
+    "lat": 18.5204,
+    "lon": 73.8567,
+    "state": "Maharashtra",
+    "location_type": "city"
+  },
+  {
+    "id": "delhi",
+    "name": "New Delhi",
+    "lat": 28.6139,
+    "lon": 77.209,
+    "state": "Delhi",
+    "location_type": "city",
+    "states": [
+      "Delhi"
+    ]
+  },
+  {
+    "id": "jaipur",
+    "name": "Jaipur",
+    "lat": 26.9124,
+    "lon": 75.7873,
+    "state": "Rajasthan",
+    "location_type": "city",
+    "states": [
+      "Rajasthan"
+    ]
+  },
+  {
+    "id": "chandigarh",
+    "name": "Chandigarh",
+    "lat": 30.7333,
+    "lon": 76.7794,
+    "state": "Chandigarh",
+    "location_type": "city",
+    "states": [
+      "Haryana",
+      "Punjab",
+      "Chandigarh"
+    ]
+  },
+  {
+    "id": "kolkata",
+    "name": "Kolkata",
+    "lat": 22.5726,
+    "lon": 88.3639,
+    "state": "West Bengal",
+    "location_type": "city",
+    "states": [
+      "West Bengal"
+    ]
+  },
+  {
+    "id": "bhubaneswar",
+    "name": "Bhubaneswar",
+    "lat": 20.2961,
+    "lon": 85.8245,
+    "state": "Odisha",
+    "location_type": "city",
+    "states": [
+      "Odisha"
+    ]
+  },
+  {
+    "id": "kochi",
+    "name": "Kochi",
+    "lat": 9.9312,
+    "lon": 76.2673,
+    "state": "Kerala",
+    "location_type": "city"
+  },
+  {
+    "id": "ahmedabad",
+    "name": "Ahmedabad",
+    "lat": 23.0225,
+    "lon": 72.5714,
+    "state": "Gujarat",
+    "location_type": "city"
+  },
+  {
+    "id": "goa",
+    "name": "Goa",
+    "lat": 15.2993,
+    "lon": 74.124,
+    "state": "Goa",
+    "location_type": "city"
+  },
+  {
+    "id": "lucknow",
+    "name": "Lucknow",
+    "lat": 26.8467,
+    "lon": 80.9462,
+    "state": "Uttar Pradesh",
+    "location_type": "city",
+    "states": [
+      "Uttar Pradesh"
+    ]
+  },
+  {
+    "id": "varanasi",
+    "name": "Varanasi",
+    "lat": 25.3176,
+    "lon": 82.9739,
+    "state": "Uttar Pradesh",
+    "location_type": "city"
+  },
+  {
+    "id": "amaravati",
+    "name": "Amaravati",
+    "lat": 16.5062,
+    "lon": 80.648,
+    "state": "Andhra Pradesh",
+    "states": [
+      "Andhra Pradesh"
+    ],
+    "location_type": "capital"
+  },
+  {
+    "id": "itanagar",
+    "name": "Itanagar",
+    "lat": 27.0844,
+    "lon": 93.6053,
+    "state": "Arunachal Pradesh",
+    "states": [
+      "Arunachal Pradesh"
+    ],
+    "location_type": "capital"
+  },
+  {
+    "id": "dispur",
+    "name": "Dispur",
+    "lat": 26.1433,
+    "lon": 91.7898,
+    "state": "Assam",
+    "states": [
+      "Assam"
+    ],
+    "location_type": "capital"
+  },
+  {
+    "id": "patna",
+    "name": "Patna",
+    "lat": 25.5941,
+    "lon": 85.1376,
+    "state": "Bihar",
+    "states": [
+      "Bihar"
+    ],
+    "location_type": "capital"
+  },
+  {
+    "id": "raipur",
+    "name": "Raipur",
+    "lat": 21.2514,
+    "lon": 81.6296,
+    "state": "Chhattisgarh",
+    "states": [
+      "Chhattisgarh"
+    ],
+    "location_type": "capital"
+  },
+  {
+    "id": "panaji",
+    "name": "Panaji",
+    "lat": 15.4909,
+    "lon": 73.8278,
+    "state": "Goa",
+    "states": [
+      "Goa"
+    ],
+    "location_type": "capital"
+  },
+  {
+    "id": "gandhinagar",
+    "name": "Gandhinagar",
+    "lat": 23.2156,
+    "lon": 72.6369,
+    "state": "Gujarat",
+    "states": [
+      "Gujarat"
+    ],
+    "location_type": "capital"
+  },
+  {
+    "id": "shimla",
+    "name": "Shimla",
+    "lat": 31.1048,
+    "lon": 77.1734,
+    "state": "Himachal Pradesh",
+    "states": [
+      "Himachal Pradesh"
+    ],
+    "location_type": "capital"
+  },
+  {
+    "id": "ranchi",
+    "name": "Ranchi",
+    "lat": 23.3441,
+    "lon": 85.3096,
+    "state": "Jharkhand",
+    "states": [
+      "Jharkhand"
+    ],
+    "location_type": "capital"
+  },
+  {
+    "id": "thiruvananthapuram",
+    "name": "Thiruvananthapuram",
+    "lat": 8.5241,
+    "lon": 76.9366,
+    "state": "Kerala",
+    "states": [
+      "Kerala"
+    ],
+    "location_type": "capital"
+  },
+  {
+    "id": "bhopal",
+    "name": "Bhopal",
+    "lat": 23.2599,
+    "lon": 77.4126,
+    "state": "Madhya Pradesh",
+    "states": [
+      "Madhya Pradesh"
+    ],
+    "location_type": "capital"
+  },
+  {
+    "id": "imphal",
+    "name": "Imphal",
+    "lat": 24.817,
+    "lon": 93.9368,
+    "state": "Manipur",
+    "states": [
+      "Manipur"
+    ],
+    "location_type": "capital"
+  },
+  {
+    "id": "shillong",
+    "name": "Shillong",
+    "lat": 25.5788,
+    "lon": 91.8933,
+    "state": "Meghalaya",
+    "states": [
+      "Meghalaya"
+    ],
+    "location_type": "capital"
+  },
+  {
+    "id": "aizawl",
+    "name": "Aizawl",
+    "lat": 23.7271,
+    "lon": 92.7176,
+    "state": "Mizoram",
+    "states": [
+      "Mizoram"
+    ],
+    "location_type": "capital"
+  },
+  {
+    "id": "kohima",
+    "name": "Kohima",
+    "lat": 25.6751,
+    "lon": 94.1086,
+    "state": "Nagaland",
+    "states": [
+      "Nagaland"
+    ],
+    "location_type": "capital"
+  },
+  {
+    "id": "gangtok",
+    "name": "Gangtok",
+    "lat": 27.3389,
+    "lon": 88.6065,
+    "state": "Sikkim",
+    "states": [
+      "Sikkim"
+    ],
+    "location_type": "capital"
+  },
+  {
+    "id": "agartala",
+    "name": "Agartala",
+    "lat": 23.8315,
+    "lon": 91.2868,
+    "state": "Tripura",
+    "states": [
+      "Tripura"
+    ],
+    "location_type": "capital"
+  },
+  {
+    "id": "dehradun",
+    "name": "Dehradun",
+    "lat": 30.3165,
+    "lon": 78.0322,
+    "state": "Uttarakhand",
+    "states": [
+      "Uttarakhand"
+    ],
+    "location_type": "capital"
+  },
+  {
+    "id": "sri_vijaya_puram_port_blair",
+    "name": "Sri Vijaya Puram (Port Blair)",
+    "lat": 11.6234,
+    "lon": 92.7265,
+    "state": "Andaman and Nicobar Islands",
+    "states": [
+      "Andaman and Nicobar Islands"
+    ],
+    "location_type": "union_territory_capital"
+  },
+  {
+    "id": "daman",
+    "name": "Daman",
+    "lat": 20.3974,
+    "lon": 72.8328,
+    "state": "Dadra and Nagar Haveli and Daman and Diu",
+    "states": [
+      "Dadra and Nagar Haveli and Daman and Diu"
+    ],
+    "location_type": "union_territory_capital"
+  },
+  {
+    "id": "srinagar",
+    "name": "Srinagar",
+    "lat": 34.0837,
+    "lon": 74.7973,
+    "state": "Jammu and Kashmir",
+    "states": [
+      "Jammu and Kashmir"
+    ],
+    "location_type": "union_territory_capital"
+  },
+  {
+    "id": "leh",
+    "name": "Leh",
+    "lat": 34.1526,
+    "lon": 77.5771,
+    "state": "Ladakh",
+    "states": [
+      "Ladakh"
+    ],
+    "location_type": "union_territory_capital"
+  },
+  {
+    "id": "kavaratti",
+    "name": "Kavaratti",
+    "lat": 10.5667,
+    "lon": 72.6417,
+    "state": "Lakshadweep",
+    "states": [
+      "Lakshadweep"
+    ],
+    "location_type": "union_territory_capital"
+  },
+  {
+    "id": "puducherry",
+    "name": "Puducherry",
+    "lat": 11.9416,
+    "lon": 79.8083,
+    "state": "Puducherry",
+    "states": [
+      "Puducherry"
+    ],
+    "location_type": "union_territory_capital"
+  }
+]

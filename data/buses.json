@@ -1,0 +1,167 @@
+[
+  {
+    "from": "chennai",
+    "to": "bangalore",
+    "operator": "KSRTC Airavat",
+    "dep": "22:30",
+    "arr": "05:30+1",
+    "duration_min": 420,
+    "cost": 750,
+    "type": "AC Sleeper",
+    "bidirectional": true
+  },
+  {
+    "from": "chennai",
+    "to": "bangalore",
+    "operator": "FlixBus Premium",
+    "dep": "23:00",
+    "arr": "06:00+1",
+    "duration_min": 420,
+    "cost": 699,
+    "type": "AC Seater",
+    "bidirectional": true
+  },
+  {
+    "from": "chennai",
+    "to": "bangalore",
+    "operator": "SRS Travels",
+    "dep": "21:45",
+    "arr": "05:15+1",
+    "duration_min": 450,
+    "cost": 550,
+    "type": "Non-AC Sleeper",
+    "bidirectional": true
+  },
+  {
+    "from": "chennai",
+    "to": "bangalore",
+    "operator": "VRL Multi-Axle",
+    "dep": "23:30",
+    "arr": "06:45+1",
+    "duration_min": 435,
+    "cost": 820,
+    "type": "AC Sleeper",
+    "bidirectional": true
+  },
+  {
+    "from": "bangalore",
+    "to": "hyderabad",
+    "operator": "TSRTC / Orange",
+    "dep": "21:00",
+    "arr": "07:30+1",
+    "duration_min": 630,
+    "cost": 950,
+    "type": "AC Sleeper",
+    "bidirectional": true
+  },
+  {
+    "from": "mumbai",
+    "to": "pune",
+    "operator": "MSRTC Shivneri",
+    "dep": "07:00",
+    "arr": "10:30",
+    "duration_min": 210,
+    "cost": 450,
+    "type": "AC Seater",
+    "bidirectional": true
+  },
+  {
+    "from": "mumbai",
+    "to": "pune",
+    "operator": "Neeta Travels",
+    "dep": "18:00",
+    "arr": "21:30",
+    "duration_min": 210,
+    "cost": 480,
+    "type": "AC Seater",
+    "bidirectional": true
+  },
+  {
+    "from": "delhi",
+    "to": "jaipur",
+    "operator": "RSRTC Volvo",
+    "dep": "07:00",
+    "arr": "12:00",
+    "duration_min": 300,
+    "cost": 650,
+    "type": "AC Seater",
+    "bidirectional": true
+  },
+  {
+    "from": "delhi",
+    "to": "jaipur",
+    "operator": "FlixBus",
+    "dep": "22:30",
+    "arr": "04:00+1",
+    "duration_min": 330,
+    "cost": 399,
+    "type": "AC Sleeper",
+    "bidirectional": true
+  },
+  {
+    "from": "delhi",
+    "to": "chandigarh",
+    "operator": "HRTC / Private",
+    "dep": "08:00",
+    "arr": "12:30",
+    "duration_min": 270,
+    "cost": 700,
+    "type": "AC Seater",
+    "bidirectional": true
+  },
+  {
+    "from": "chennai",
+    "to": "kochi",
+    "operator": "KSRTC / Private",
+    "dep": "20:00",
+    "arr": "08:00+1",
+    "duration_min": 720,
+    "cost": 1250,
+    "type": "AC Sleeper",
+    "bidirectional": true
+  },
+  {
+    "from": "bangalore",
+    "to": "goa",
+    "operator": "Private AC Sleeper",
+    "dep": "20:30",
+    "arr": "08:30+1",
+    "duration_min": 720,
+    "cost": 1400,
+    "type": "AC Sleeper",
+    "bidirectional": true
+  },
+  {
+    "from": "mumbai",
+    "to": "goa",
+    "operator": "Private AC Sleeper",
+    "dep": "19:00",
+    "arr": "07:00+1",
+    "duration_min": 720,
+    "cost": 1300,
+    "type": "AC Sleeper",
+    "bidirectional": true
+  },
+  {
+    "from": "mumbai",
+    "to": "ahmedabad",
+    "operator": "GSRTC / Private",
+    "dep": "21:00",
+    "arr": "07:00+1",
+    "duration_min": 600,
+    "cost": 1100,
+    "type": "AC Sleeper",
+    "bidirectional": true
+  },
+  {
+    "from": "kolkata",
+    "to": "bhubaneswar",
+    "operator": "OSRTC / Private",
+    "dep": "22:00",
+    "arr": "06:00+1",
+    "duration_min": 480,
+    "cost": 850,
+    "type": "AC Sleeper",
+    "bidirectional": true
+  }
+]
