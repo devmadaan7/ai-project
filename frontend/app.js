@@ -639,8 +639,9 @@ async function searchRoutes() {
     updateBookingBar();
     resultsHeader.scrollIntoView({ behavior: "smooth", block: "start" });
 
-  } catch (err) {
-    showStatus("Failed to fetch routes. Please check the backend.", "error");
+ } catch (err) {
+  console.error("Route search error:", err);
+  showStatus("Route error: " + err.message, "error");
   } finally {
     setLoading(false);
   }
