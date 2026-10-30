@@ -1,6 +1,8 @@
+
 const API_BASE = window.location.protocol === "file:"
   ? "http://127.0.0.1:8000"
-  : `${window.location.protocol}//${window.location.hostname}:8000`;
+  : window.location.origin;
+
 const FALLBACK_API = "http://127.0.0.1:8000";
 
 let tripType = "oneway";
@@ -50,35 +52,53 @@ const btnLoader = searchBtn.querySelector(".btn-loader");
 
 function initDates() {
   const today = new Date();
-  const tomorrow = new Date(today); tomorrow.setDate(tomorrow.getDate() + 1);
-  const dayAfter = new Date(today); dayAfter.setDate(dayAfter.getDate() + 3);
+  const tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const dayAfter = new Date(today);
+  dayAfter.setDate(dayAfter.getDate() + 3);
+
   const toISO = (d) => d.toISOString().split("T")[0];
+
   departDateInput.min = toISO(today);
   departDateInput.value = toISO(tomorrow);
   returnDateInput.min = toISO(tomorrow);
   returnDateInput.value = toISO(dayAfter);
   returnDateInput.disabled = true;
 }
+
 initDates();
 
 const modeTabs = [...document.querySelectorAll(".mode-tab")];
+
 function setTransportMode(mode) {
   transportModeSelect.value = mode;
-  modeTabs.forEach((tab) => tab.classList.toggle("active", tab.dataset.mode === mode));
+  modeTabs.forEach((tab) =>
+    tab.classList.toggle("active", tab.dataset.mode === mode)
+  );
 }
-modeTabs.forEach((tab) => tab.addEventListener("click", () => setTransportMode(tab.dataset.mode)));
+
+modeTabs.forEach((tab) =>
+  tab.addEventListener("click", () => setTransportMode(tab.dataset.mode))
+);
+
 transportModeSelect.addEventListener("change", () => {
   const mode = transportModeSelect.value;
-  modeTabs.forEach((tab) => tab.classList.toggle("active", tab.dataset.mode === mode));
+  modeTabs.forEach((tab) =>
+    tab.classList.toggle("active", tab.dataset.mode === mode)
+  );
 });
+
 setTransportMode("flight");
 
 departDateInput.addEventListener("change", () => {
   const dep = departDateInput.value;
+
   if (dep) {
     returnDateInput.min = dep;
+
     if (returnDateInput.value && returnDateInput.value < dep) {
-      const d = new Date(dep); d.setDate(d.getDate() + 1);
+      const d = new Date(dep);
+      d.setDate(d.getDate() + 1);
       returnDateInput.value = d.toISOString().split("T")[0];
     }
   }
@@ -86,7 +106,10 @@ departDateInput.addEventListener("change", () => {
 
 document.querySelectorAll(".trip-tab").forEach((tab) => {
   tab.addEventListener("click", () => {
-    document.querySelectorAll(".trip-tab").forEach((t) => t.classList.remove("active"));
+    document.querySelectorAll(".trip-tab").forEach((t) =>
+      t.classList.remove("active")
+    );
+
     tab.classList.add("active");
     tripType = tab.dataset.type;
     returnDateInput.disabled = tripType !== "round";
@@ -98,10 +121,14 @@ document.querySelectorAll(".trip-tab").forEach((tab) => {
 
 document.querySelectorAll(".sort-pill").forEach((pill) => {
   pill.addEventListener("click", () => {
-    document.querySelectorAll(".sort-pill").forEach((p) => p.classList.remove("active"));
+    document.querySelectorAll(".sort-pill").forEach((p) =>
+      p.classList.remove("active")
+    );
+
     pill.classList.add("active");
     currentSort = pill.dataset.sort;
     preferSelect.value = currentSort;
+
     if (lastOutboundRoutes.length) searchRoutes();
   });
 });
@@ -123,124 +150,221 @@ function showStatus(msg, type = "info") {
   statusEl.innerHTML = `<div class="${type}">${msg}</div>`;
   statusEl.classList.remove("hidden");
 }
-function hideStatus() { statusEl.classList.add("hidden"); }
+
+function hideStatus() {
+  statusEl.classList.add("hidden");
+}
+
 function setLoading(on) {
   searchBtn.disabled = on;
   btnText.classList.toggle("hidden", on);
   btnLoader.classList.toggle("hidden", !on);
 }
+
 function formatDuration(mins) {
   const h = Math.floor(mins / 60);
   const m = mins % 60;
+
   if (h === 0) return `${m}m`;
   return m === 0 ? `${h}h` : `${h}h ${m}m`;
 }
-function formatPrice(n) { return "₹" + Number(n).toLocaleString("en-IN"); }
-function formatDate(iso) {
-  if (!iso) return "";
-  const d = new Date(iso + "T00:00:00");
-  return d.toLocaleDateString("en-IN", { weekday: "short", day: "numeric", month: "short" });
+
+function formatPrice(n) {
+  return "₹" + Number(n).toLocaleString("en-IN");
 }
 
-// Use real departure/arrival times from backend meta
+function formatDate(iso) {
+  if (!iso) return "";
+
+  const d = new Date(iso + "T00:00:00");
+
+  return d.toLocaleDateString("en-IN", {
+    weekday: "short",
+    day: "numeric",
+    month: "short"
+  });
+}
+
 function getTimes(route) {
   const seg = route.segments && route.segments[0];
+
   if (route.departure_time || route.arrival_time) {
-    return { dep: route.departure_time || "—", arr: route.arrival_time || "—" };
+    return {
+      dep: route.departure_time || "—",
+      arr: route.arrival_time || "—"
+    };
   }
+
   if (seg && seg.meta) {
-    return { dep: seg.meta.dep || "—", arr: seg.meta.arr || "—" };
+    return {
+      dep: seg.meta.dep || "—",
+      arr: seg.meta.arr || "—"
+    };
   }
+
   return { dep: "—", arr: "—" };
 }
 
-async function fetchCities() {
-  for (const base of [API_BASE, FALLBACK_API]) {
+async function fetchFromAPI(endpoint) {
+  const bases = [...new Set([API_BASE, window.__API_BASE, FALLBACK_API].filter(Boolean))];
+
+  for (const base of bases) {
     try {
-      const res = await fetch(`${base}/cities`);
-      if (!res.ok) continue;
-      window.__API_BASE = base;
-      return await res.json();
-    } catch (_) {}
+      const response = await fetch(`${base}${endpoint}`);
+
+      if (response.ok) {
+        window.__API_BASE = base;
+        return await response.json();
+      }
+    } catch (error) {}
   }
+
   return null;
 }
 
+async function fetchCities() {
+  return await fetchFromAPI("/cities");
+}
+
+async function fetchStates() {
+  return await fetchFromAPI("/states");
+}
+
 async function loadCities() {
-  const cities = await fetchCities();
-  if (!cities) {
-    showStatus("⚠️ Cannot reach backend. Start the server on port 8000.", "error");
-    return;
-  }
+  try {
+    const [cities, statesData] = await Promise.all([
+      fetchCities(),
+      fetchStates()
+    ]);
 
-  const cityByName = new Map(cities.map((city) => [city.name.trim().toLowerCase(), city]));
-  const cityByState = new Map();
-  cities.forEach((city) => {
-    [city.state, ...(city.states || [])].filter(Boolean).forEach((state) => {
-      if (!cityByState.has(state.toLowerCase())) cityByState.set(state.toLowerCase(), city);
-    });
-  });
+    if (!cities || !Array.isArray(cities)) {
+      showStatus("Cannot load cities. Please check the backend connection.", "error");
+      return;
+    }
 
-  const addOption = (select, label, value) => select.add(new Option(label, value));
-  [originSelect, destSelect].forEach((select) => {
-    const citiesGroup = document.createElement("optgroup");
-    citiesGroup.label = "Cities and travel hubs";
+    const cityByName = new Map(
+      cities.map((city) => [city.name.trim().toLowerCase(), city])
+    );
+
+    const cityByState = new Map();
+
     cities.forEach((city) => {
-      const stateLabel = city.states?.length ? city.states.join(" / ") : (city.state || "India");
-      citiesGroup.appendChild(new Option(`${city.name} — ${stateLabel}`, city.id));
+      [city.state, ...(city.states || [])]
+        .filter(Boolean)
+        .forEach((state) => {
+          const key = state.toLowerCase();
+
+          if (!cityByState.has(key)) {
+            cityByState.set(key, city);
+          }
+        });
     });
-    select.appendChild(citiesGroup);
-  });
 
-  let statesData = null;
-  for (const base of [window.__API_BASE || API_BASE, FALLBACK_API]) {
-    try {
-      const response = await fetch(`${base}/states`);
-      if (response.ok) {
-        statesData = await response.json();
-        break;
-      }
-    } catch (_) {}
-  }
-
-  if (statesData) {
-    const stateItems = [
-      ...(statesData.states || []).map((item) => ({ ...item, kind: "State" })),
-      ...(statesData.union_territories || []).map((item) => ({ ...item, kind: "Union Territory" }))
-    ];
     [originSelect, destSelect].forEach((select) => {
-      const statesGroup = document.createElement("optgroup");
-      statesGroup.label = "Indian states and union territories";
-      stateItems.forEach((item) => {
-        const capitalName = item.capital.split(" (")[0].trim().toLowerCase();
-        let city = cityByName.get(capitalName) || cityByState.get(item.name.toLowerCase());
-        if (!city && ["Haryana", "Punjab"].includes(item.name)) city = cityByName.get("chandigarh");
-        if (!city && item.name === "Delhi") city = cityByName.get("new delhi");
-        if (city) {
-          statesGroup.appendChild(new Option(`${item.name} — ${item.kind} (Capital: ${city.name})`, city.id));
-        }
-      });
-      select.appendChild(statesGroup);
-    });
-  }
+      select.innerHTML = "";
 
-  originSelect.value = "chennai";
-  destSelect.value = "bangalore";
-  hideStatus();
+      select.add(new Option("Select a location", ""));
+
+      const citiesGroup = document.createElement("optgroup");
+      citiesGroup.label = "Cities and travel hubs";
+
+      cities.forEach((city) => {
+        const stateLabel = city.states?.length
+          ? city.states.join(" / ")
+          : (city.state || "India");
+
+        citiesGroup.appendChild(
+          new Option(`${city.name} — ${stateLabel}`, city.id)
+        );
+      });
+
+      select.appendChild(citiesGroup);
+    });
+
+    if (statesData) {
+      const stateItems = [
+        ...(statesData.states || []).map((item) => ({
+          ...item,
+          kind: "State"
+        })),
+        ...(statesData.union_territories || []).map((item) => ({
+          ...item,
+          kind: "Union Territory"
+        }))
+      ];
+
+      [originSelect, destSelect].forEach((select) => {
+        const statesGroup = document.createElement("optgroup");
+        statesGroup.label = "Indian states and union territories";
+
+        stateItems.forEach((item) => {
+          const capitalName = item.capital
+            .split(" (")[0]
+            .trim()
+            .toLowerCase();
+
+          let city = cityByName.get(capitalName);
+
+          if (!city) {
+            city = cityByState.get(item.name.toLowerCase());
+          }
+
+          if (!city && ["Haryana", "Punjab"].includes(item.name)) {
+            city = cityByName.get("chandigarh");
+          }
+
+          if (!city && item.name === "Delhi") {
+            city = cityByName.get("new delhi");
+          }
+
+          if (city) {
+            statesGroup.appendChild(
+              new Option(
+                `${item.name} — ${item.kind} (Capital: ${city.name})`,
+                city.id
+              )
+            );
+          }
+        });
+
+        select.appendChild(statesGroup);
+      });
+    } else {
+      showStatus("Cities loaded, but states could not be loaded.", "error");
+    }
+
+    originSelect.value = "chennai";
+    destSelect.value = "bangalore";
+
+    hideStatus();
+
+  } catch (error) {
+    showStatus("Unable to load locations. Please refresh the page.", "error");
+  }
 }
 
 function renderRoute(route, index, direction) {
   const delay = index * 40;
   const times = getTimes(route);
-  const primaryMode = route.modes[0] || "train";
-  const modesHtml = route.modes.map((m) => `<span class="mode-badge ${m}">${m}</span>`).join("");
+  const modesHtml = route.modes
+    .map((m) => `<span class="mode-badge ${m}">${m}</span>`)
+    .join("");
 
   const segsHtml = route.segments.map((s) => {
-    const extra = [s.meta?.name, s.meta?.airline, s.meta?.operator, s.meta?.train_no ? `#${s.meta.train_no}` : null, s.meta?.vehicle, s.meta?.class, s.meta?.type]
-      .filter(Boolean).join(" · ");
+    const extra = [
+      s.meta?.name,
+      s.meta?.airline,
+      s.meta?.operator,
+      s.meta?.train_no ? `#${s.meta.train_no}` : null,
+      s.meta?.vehicle,
+      s.meta?.class,
+      s.meta?.type
+    ].filter(Boolean).join(" · ");
+
     const timeStr = (s.meta?.dep && s.meta.dep !== "Flexible")
       ? ` · ${s.meta.dep} → ${s.meta.arr || ""}`
       : (s.meta?.dep === "Flexible" ? " · Flexible timing" : "");
+
     return `
       <div class="seg-row">
         <span class="seg-mode ${s.mode}">${s.mode}</span>
@@ -293,15 +417,18 @@ function attachCardListeners(container, direction) {
   container.querySelectorAll(".route-card").forEach((card) => {
     card.addEventListener("click", () => {
       const idx = Number(card.dataset.idx);
+
       if (direction === "outbound") {
         selectedOutbound = idx;
-        container.querySelectorAll(".route-card").forEach((c) => c.classList.remove("selected"));
-        card.classList.add("selected");
       } else {
         selectedReturn = idx;
-        container.querySelectorAll(".route-card").forEach((c) => c.classList.remove("selected"));
-        card.classList.add("selected");
       }
+
+      container.querySelectorAll(".route-card").forEach((c) =>
+        c.classList.remove("selected")
+      );
+
+      card.classList.add("selected");
       updateBookingBar();
     });
   });
@@ -309,6 +436,7 @@ function attachCardListeners(container, direction) {
 
 function updateBookingBar() {
   travellers = Number(travellersSelect.value) || 1;
+
   let total = 0;
   const parts = [];
 
@@ -317,6 +445,7 @@ function updateBookingBar() {
     total += r.total_cost * travellers;
     parts.push(`Outbound ${formatDate(departDateInput.value)}: ${formatPrice(r.total_cost)}`);
   }
+
   if (tripType === "round" && selectedReturn !== null && lastReturnRoutes[selectedReturn]) {
     const r = lastReturnRoutes[selectedReturn];
     total += r.total_cost * travellers;
@@ -332,9 +461,15 @@ function updateBookingBar() {
   }
 
   bookingBar.classList.remove("hidden");
-  selectedSummary.textContent = parts.join("  ·  ") + (travellers > 1 ? `  × ${travellers}` : "");
+  selectedSummary.textContent =
+    parts.join("  ·  ") + (travellers > 1 ? `  × ${travellers}` : "");
+
   totalPriceEl.textContent = formatPrice(total);
-  bookBtn.disabled = !(selectedOutbound !== null && (tripType === "oneway" || selectedReturn !== null));
+
+  bookBtn.disabled = !(
+    selectedOutbound !== null &&
+    (tripType === "oneway" || selectedReturn !== null)
+  );
 }
 
 async function searchRoutes() {
@@ -345,63 +480,133 @@ async function searchRoutes() {
   const returnDate = returnDateInput.value;
   const base = window.__API_BASE || API_BASE;
 
-  if (!origin || !destination) { showStatus("Please select origin and destination.", "error"); return; }
-  if (origin === destination) { showStatus("Origin and destination cannot be the same.", "error"); return; }
-  if (!departDate) { showStatus("Please select a departure date.", "error"); return; }
-  if (tripType === "round" && !returnDate) { showStatus("Please select a return date.", "error"); return; }
-  if (tripType === "round" && returnDate < departDate) { showStatus("Return must be on/after departure.", "error"); return; }
+  if (!origin || !destination) {
+    showStatus("Please select origin and destination.", "error");
+    return;
+  }
+
+  if (origin === destination) {
+    showStatus("Origin and destination cannot be the same.", "error");
+    return;
+  }
+
+  if (!departDate) {
+    showStatus("Please select a departure date.", "error");
+    return;
+  }
+
+  if (tripType === "round" && !returnDate) {
+    showStatus("Please select a return date.", "error");
+    return;
+  }
+
+  if (tripType === "round" && returnDate < departDate) {
+    showStatus("Return must be on/after departure.", "error");
+    return;
+  }
 
   setLoading(true);
-  const modeLabels = { all: "all transport", flight: "flights", train: "trains", bus: "buses", cab: "cabs", road: "road options" };
+
+  const modeLabels = {
+    all: "all transport",
+    flight: "flights",
+    train: "trains",
+    bus: "buses",
+    cab: "cabs",
+    road: "road options"
+  };
+
   showStatus(`Searching ${modeLabels[transportModeSelect.value] || "travel options"}…`, "loading");
+
   outboundResults.innerHTML = "";
   returnResults.innerHTML = "";
   outboundSection.classList.add("hidden");
   returnSection.classList.add("hidden");
   resultsHeader.classList.add("hidden");
+
   selectedOutbound = null;
   selectedReturn = null;
+  lastReturnRoutes = [];
+
   updateBookingBar();
 
   try {
     const mode = transportModeSelect.value || "all";
     const timePeriod = timePeriodSelect.value || "any";
     const maxPrice = maxPriceInput.value.trim();
+
     const query = (date) => {
       const params = new URLSearchParams({
-        origin, destination, prefer, travel_date: date || departDate,
-        mode, time_period: timePeriod
+        origin,
+        destination,
+        prefer,
+        travel_date: date || departDate,
+        mode,
+        time_period: timePeriod
       });
+
       if (departAfterInput.value) {
         params.set("depart_time", departAfterInput.value);
         params.set("depart_match", departMatchSelect.value || "after");
       }
-      if (maxPrice !== "") params.set("max_price", maxPrice);
+
+      if (maxPrice !== "") {
+        params.set("max_price", maxPrice);
+      }
+
       return params.toString();
     };
+
     const outRes = await fetch(`${base}/route?${query(departDate)}`);
     const outData = await outRes.json();
-    if (!outRes.ok) { showStatus(outData.detail || "No routes found.", "error"); return; }
 
-    lastOutboundRoutes = outData.routes;
-    outboundResults.innerHTML = outData.routes.map((r, i) => renderRoute(r, i, "outbound")).join("");
+    if (!outRes.ok) {
+      showStatus(outData.detail || "No routes found.", "error");
+      return;
+    }
+
+    lastOutboundRoutes = outData.routes || [];
+
+    outboundResults.innerHTML = lastOutboundRoutes
+      .map((r, i) => renderRoute(r, i, "outbound"))
+      .join("");
+
     attachCardListeners(outboundResults, "outbound");
+
     outboundLabel.textContent = `Outbound · ${formatDate(departDate)}`;
     outboundSection.classList.remove("hidden");
 
     if (tripType === "round") {
-      const retParams = new URLSearchParams({origin: destination, destination: origin, prefer, travel_date: returnDate, mode, time_period: timePeriod});
+      const retParams = new URLSearchParams({
+        origin: destination,
+        destination: origin,
+        prefer,
+        travel_date: returnDate,
+        mode,
+        time_period: timePeriod
+      });
+
       if (departAfterInput.value) {
         retParams.set("depart_time", departAfterInput.value);
         retParams.set("depart_match", departMatchSelect.value || "after");
       }
-      if (maxPrice !== "") retParams.set("max_price", maxPrice);
+
+      if (maxPrice !== "") {
+        retParams.set("max_price", maxPrice);
+      }
+
       const retRes = await fetch(`${base}/route?${retParams.toString()}`);
       const retData = await retRes.json();
+
       if (retRes.ok && retData.routes?.length) {
         lastReturnRoutes = retData.routes;
-        returnResults.innerHTML = retData.routes.map((r, i) => renderRoute(r, i, "return")).join("");
+
+        returnResults.innerHTML = lastReturnRoutes
+          .map((r, i) => renderRoute(r, i, "return"))
+          .join("");
+
         attachCardListeners(returnResults, "return");
+
         returnLabel.textContent = `Return · ${formatDate(returnDate)}`;
         returnSection.classList.remove("hidden");
       }
@@ -409,41 +614,60 @@ async function searchRoutes() {
 
     hideStatus();
     resultsHeader.classList.remove("hidden");
-    const oName = outData.routes[0]?.origin || origin;
-    const dName = outData.routes[0]?.destination || destination;
-    resultsTitle.textContent = tripType === "round" ? `${oName} ⇄ ${dName}` : `${oName} → ${dName}`;
+
+    const oName = lastOutboundRoutes[0]?.origin || origin;
+    const dName = lastOutboundRoutes[0]?.destination || destination;
+
+    resultsTitle.textContent = tripType === "round"
+      ? `${oName} ⇄ ${dName}`
+      : `${oName} → ${dName}`;
+
     resultsCount.textContent = (tripType === "round"
       ? `${outData.count} outbound · ${lastReturnRoutes.length} return options`
       : `${outData.count} option${outData.count !== 1 ? "s" : ""} found`) +
       " · Sample schedules and prices are estimates; verify with the operator.";
 
-    selectedOutbound = 0;
+    selectedOutbound = lastOutboundRoutes.length ? 0 : null;
+
     outboundResults.querySelector(".route-card")?.classList.add("selected");
+
     if (tripType === "round" && lastReturnRoutes.length) {
       selectedReturn = 0;
       returnResults.querySelector(".route-card")?.classList.add("selected");
     }
-    updateBookingBar();
 
-    // Scroll to results
+    updateBookingBar();
     resultsHeader.scrollIntoView({ behavior: "smooth", block: "start" });
+
   } catch (err) {
-    showStatus("Failed to fetch routes. Is the backend running?", "error");
+    showStatus("Failed to fetch routes. Please check the backend.", "error");
   } finally {
     setLoading(false);
   }
 }
 
-bookBtn.addEventListener("click", () => { if (!bookBtn.disabled) openBookingForm(); });
+bookBtn.addEventListener("click", () => {
+  if (!bookBtn.disabled) openBookingForm();
+});
 
 function openBookingForm() {
   const out = lastOutboundRoutes[selectedOutbound];
-  const ret = tripType === "round" ? lastReturnRoutes[selectedReturn] : null;
+  const ret = tripType === "round"
+    ? lastReturnRoutes[selectedReturn]
+    : null;
+
+  if (!out) return;
+
   travellers = Number(travellersSelect.value) || 1;
+
   const departDate = departDateInput.value;
   const returnDate = returnDateInput.value;
+
   let total = out.total_cost * travellers;
-  if (ret) total += ret.total_cost * travellers;
+
+  if (ret) {
+    total += ret.total_cost * travellers;
+  }
 
   modalBody.innerHTML = `
     <h2 style="font-size:1.2rem;font-weight:800;margin-bottom:0.3rem">Complete booking</h2>
@@ -476,22 +700,40 @@ function openBookingForm() {
       Demo booking only. No real payment or ticket is issued.
     </p>
   `;
+
   bookingModal.classList.remove("hidden");
 
   document.getElementById("confirmBook").addEventListener("click", () => {
     const name = document.getElementById("paxName").value.trim();
     const email = document.getElementById("paxEmail").value.trim();
     const mobile = document.getElementById("paxMobile").value.trim();
-    if (!name || !email || !mobile) { alert("Please fill name, email and mobile."); return; }
+
+    if (!name || !email || !mobile) {
+      alert("Please fill name, email and mobile.");
+      return;
+    }
 
     const pnr = "WF" + Math.random().toString(36).substring(2, 8).toUpperCase();
+
     const booking = {
-      pnr, name, email, mobile, travellers, tripType,
-      departDate, returnDate: tripType === "round" ? returnDate : null,
-      outbound: out, return: ret, total, bookedAt: new Date().toISOString(),
+      pnr,
+      name,
+      email,
+      mobile,
+      travellers,
+      tripType,
+      departDate,
+      returnDate: tripType === "round" ? returnDate : null,
+      outbound: out,
+      return: ret,
+      total,
+      bookedAt: new Date().toISOString()
     };
+
     const existing = JSON.parse(localStorage.getItem("wayfinder_bookings") || "[]");
+
     existing.unshift(booking);
+
     localStorage.setItem("wayfinder_bookings", JSON.stringify(existing));
 
     modalBody.innerHTML = `
@@ -509,24 +751,39 @@ function openBookingForm() {
         <button class="confirm-btn" style="margin-top:1.25rem;background:#e0f2fe;color:#0369a1" id="doneBtn">Done</button>
       </div>
     `;
-    document.getElementById("doneBtn").addEventListener("click", () => bookingModal.classList.add("hidden"));
+
+    document.getElementById("doneBtn").addEventListener("click", () => {
+      bookingModal.classList.add("hidden");
+    });
   });
 }
 
-closeModal.addEventListener("click", () => bookingModal.classList.add("hidden"));
-bookingModal.querySelector(".modal-backdrop").addEventListener("click", () => bookingModal.classList.add("hidden"));
+closeModal.addEventListener("click", () => {
+  bookingModal.classList.add("hidden");
+});
+
+bookingModal.querySelector(".modal-backdrop").addEventListener("click", () => {
+  bookingModal.classList.add("hidden");
+});
 
 myBookingsLink?.addEventListener("click", (e) => {
   e.preventDefault();
+
   const bookings = JSON.parse(localStorage.getItem("wayfinder_bookings") || "[]");
+
   if (!bookings.length) {
-    bookingsList.innerHTML = `<p style="color:var(--text-muted);text-align:center;padding:2rem 0">No trips yet. Book one!</p>`;
+    bookingsList.innerHTML = `
+      <p style="color:var(--text-muted);text-align:center;padding:2rem 0">
+        No trips yet. Book one!
+      </p>`;
   } else {
     bookingsList.innerHTML = bookings.map((b) => `
       <div class="booking-item">
         <div class="pnr-label">PNR</div>
         <div class="pnr-val">${b.pnr}</div>
-        <div class="route-line">${b.outbound.origin} ${b.tripType === "round" ? "⇄" : "→"} ${b.outbound.destination}</div>
+        <div class="route-line">
+          ${b.outbound.origin} ${b.tripType === "round" ? "⇄" : "→"} ${b.outbound.destination}
+        </div>
         <div class="meta">
           ${formatDate(b.departDate)}${b.returnDate ? " – " + formatDate(b.returnDate) : ""}
           · ${b.name} · ${b.travellers} adult${b.travellers > 1 ? "s" : ""} · ${formatPrice(b.total)}
@@ -534,22 +791,31 @@ myBookingsLink?.addEventListener("click", (e) => {
       </div>
     `).join("");
   }
+
   bookingsModal.classList.remove("hidden");
 });
-closeBookings.addEventListener("click", () => bookingsModal.classList.add("hidden"));
-bookingsModal.querySelector(".modal-backdrop").addEventListener("click", () => bookingsModal.classList.add("hidden"));
+
+closeBookings.addEventListener("click", () => {
+  bookingsModal.classList.add("hidden");
+});
+
+bookingsModal.querySelector(".modal-backdrop").addEventListener("click", () => {
+  bookingsModal.classList.add("hidden");
+});
 
 swapBtn.addEventListener("click", () => {
   const t = originSelect.value;
   originSelect.value = destSelect.value;
   destSelect.value = t;
 });
+
 searchBtn.addEventListener("click", searchRoutes);
+
 travellersSelect.addEventListener("change", updateBookingBar);
 
-// Seed demo tickets once
 function seedDemoBookings() {
   if (localStorage.getItem("wayfinder_seeded") === "1") return;
+
   const demos = [
     {
       pnr: "WF8K2M9P",
@@ -622,10 +888,16 @@ function seedDemoBookings() {
       bookedAt: "2026-10-21T09:00:00.000Z"
     }
   ];
+
   const existing = JSON.parse(localStorage.getItem("wayfinder_bookings") || "[]");
-  localStorage.setItem("wayfinder_bookings", JSON.stringify([...demos, ...existing]));
+
+  localStorage.setItem(
+    "wayfinder_bookings",
+    JSON.stringify([...demos, ...existing])
+  );
+
   localStorage.setItem("wayfinder_seeded", "1");
 }
-seedDemoBookings();
 
+seedDemoBookings();
 loadCities();
