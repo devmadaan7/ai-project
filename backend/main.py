@@ -9,6 +9,10 @@ from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from typing import Optional
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
 from router import router as wayfinder
 
 app = FastAPI(
